@@ -24,6 +24,7 @@ import (
 	"io/ioutil"
 	"os"
 	r "reflect"
+	"strings"
 
 	"github.com/cosmos72/gomacro/base/output"
 	"github.com/cosmos72/gomacro/base/paths"
@@ -218,7 +219,7 @@ func createImportFile(o *Output, pkgpath string, pkg *types.Package, mode Import
 func createPluginGoModFile(o *Output, pkgpath string) string {
 	file := computeImportFilename(o, pkgpath, ImPlugin)
 	gomod := paths.Subdir(paths.DirName(file), "go.mod")
-	err := ioutil.WriteFile(gomod, []byte("module gomacro.imports/"+pkgpath+"\n"), os.FileMode(0644))
+	err := ioutil.WriteFile(gomod, []byte("module gomacro.imports/"+pkgpath+"\n"+strings.Join(imports.DefaultGoMod, "\n")), os.FileMode(0644))
 	if err != nil {
 		o.Errorf("error writing file %q: %v", gomod, err)
 	}

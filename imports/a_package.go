@@ -46,6 +46,8 @@ type PackageMap map[string]Package // named, can have methods
 
 var Packages = make(PackageMap)
 
+var DefaultGoMod = make([]string, 0)
+
 // reflection: allow interpreted code to import "github.com/cosmos72/gomacro/imports"
 func init() {
 	Packages["github.com/cosmos72/gomacro/imports"] = Package{
